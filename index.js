@@ -138,15 +138,19 @@ function emailverify()
 
 function addchat(message)
 {
-    var username;
-    var messageId;
-    database().ref('users/' + currentuser.uid + '/uname').once('value').then(function (snapshot) {
-        username = snapshot.val();
-    });
-    database().ref('messageId').once('value').then(function (snapshot) {
-        messageId = snapshot.val();
-        addchat2(username, messageId, message);
-    });
+    if (message != '')
+    {
+        document.getElementById('input').value = '';
+        var username;
+        var messageId;
+        database().ref('users/' + currentuser.uid + '/uname').once('value').then(function (snapshot) {
+            username = snapshot.val();
+        });
+        database().ref('messageId').once('value').then(function (snapshot) {
+            messageId = snapshot.val();
+            addchat2(username, messageId, message);
+        });
+    }
 }
 
 function addchat2(uname, messageId, chat)
@@ -195,7 +199,7 @@ document.onload
 database().ref('chat').on('value', function(snapshot) {
     var chat = Object.values(snapshot.val());
     console.log(chat);
-    document.getElementById('chatbox').innerHTML = "";
+    document.getElementById('chatbox').innerHTML = '';
     chat.forEach(function(i){
        document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + JSON.stringify(i).replace(/{/g, "").replace(/}/g, "").replace(/"/g, "").replace(/:/, ": ") + "<br>";
     });
@@ -208,4 +212,11 @@ function clearchat()
         messageId: 10
     });
     addchat2('system', 10, 'message capacity reached, chat reset');
+}
+
+function handleEnter(e){
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+        addchat(document.getElementById('input').value);
+    }
 }

@@ -138,7 +138,6 @@ function emailverify()
 
 function addchat(message)
 {
-    console.log("not again");
     var username;
     var messageId;
     database().ref('users/' + currentuser.uid + '/uname').once('value').then(function (snapshot) {
@@ -152,14 +151,21 @@ function addchat(message)
 
 function addchat2(uname, messageId, chat)
 {
-    var message = messageId + uname
-    database().ref('chat/' + message).update({
-        [uname]: chat
-    });
-    messageId++;
-    database().ref().update({
-        messageId: messageId
-    });
+    if (messageId != NaN)
+    {
+        var message = messageId + uname
+        database().ref('chat/' + message).update({
+            [uname]: chat
+        });
+        if (messageId == 1100)
+        {
+            clearchat();
+        }
+        messageId+=1;
+        database().ref().update({
+            messageId: messageId
+        });
+    }
 }
 
 function checkVerified()
@@ -191,6 +197,15 @@ database().ref('chat').on('value', function(snapshot) {
     console.log(chat);
     document.getElementById('chatbox').innerHTML = "";
     chat.forEach(function(i){
-       document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + JSON.stringify(i).replace(/{/g, "").replace(/}/g, "").replace(/"/g, "").replace(/:/g, ": ") + "<br>";
+       document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + JSON.stringify(i).replace(/{/g, "").replace(/}/g, "").replace(/"/g, "").replace(/:/, ": ") + "<br>";
     });
 });
+
+function clearchat()
+{
+    database().ref('chat').remove();
+    database().update({
+        messageId: 10
+    });
+    addchat2('system', 10, 'message capacity reached, chat reset');
+}

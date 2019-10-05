@@ -1,7 +1,7 @@
 input
 {
     background: #e9e9e9;
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 10px;
     width: 250px;
     border: 2px solid #e9e9e9;
@@ -13,7 +13,7 @@ button
 {
     margin: 5px;
     background: dodgerblue;
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 10px;
     width: 275px;
     -webkit-transition-duration: 0.2s;
@@ -31,7 +31,7 @@ button:hover
 }
 input:focus
 {
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 10px;
     width: 250px;
     border: 2px solid dodgerblue;
@@ -91,6 +91,7 @@ input:focus
     font-family: Montserrat;
     padding: 10px;
     line-height: 30px;
+    overflow-y: auto;
 }
 #inout
 {

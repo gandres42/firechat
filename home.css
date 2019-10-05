@@ -1,0 +1,164 @@
+input
+{
+    background: #e9e9e9;
+    border-radius: 2px;
+    padding: 10px;
+    width: 250px;
+    border: 2px solid #e9e9e9;
+    -webkit-transition-duration: 0.2s;
+    font-family: montserrat;
+    margin: 5px;
+}
+button
+{
+    margin: 5px;
+    background: dodgerblue;
+    border-radius: 2px;
+    padding: 10px;
+    width: 275px;
+    -webkit-transition-duration: 0.2s;
+    border: 2px solid dodgerblue;
+    font-family: montserrat;
+    color: white;
+    align-content: center;
+    vertical-align: middle;
+}
+button:hover
+{
+    -webkit-transition-duration: 0.2s;
+    background: white;
+    color: black;
+}
+input:focus
+{
+    border-radius: 2px;
+    padding: 10px;
+    width: 250px;
+    border: 2px solid dodgerblue;
+    -webkit-transition-duration: 0.2s;
+}
+#topnav
+{
+    width: 100%;
+    height: 35px;
+    border-radius: 4px;
+    background: white;
+    margin-bottom: 0vh;
+}
+#chatdoc
+{
+    background-image: url(background.jpg);
+}
+.nav
+{
+    height: 5px;
+    float: left;
+    text-align: center;
+    padding: 7px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    color: black;
+    font-family: Montserrat;
+    -webkit-transition-duration: 0.1s;
+    margin-bottom: 0vh;
+}
+.nav:hover
+{
+    color: dodgerblue;
+    -webkit-transition-duration: 0.1s;
+}
+#logout
+{
+    float: right;
+}
+#chatbottom
+{
+    margin-top: 10px;
+    width: 100%;
+    height: calc(100vh - 62px);;
+    border-radius: 4px;
+    padding: 0px;
+    display: inline-block;
+    text-align: start;
+}
+#chatbox
+{
+    margin: 0px;
+    width: calc(100% - 20px);
+    background: white;
+    height: calc(100% - 70px);
+    border-radius: 4px;
+    font-family: Montserrat;
+    padding: 10px;
+    line-height: 30px;
+}
+#inout
+{
+    margin-top: -10px;
+    vertical-align: middle;
+
+}
+#submit
+{
+    position: absolute;
+    width: 100px;
+    margin: 0px;
+    margin-left: 5px;
+}
+#input
+{
+    margin: 0px;
+    width: calc(100% - 128px);
+}
+#space
+{
+    height: 0px;
+    margin: 0px;
+    line-height: 0px;
+}
+#stage2
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: grey;
+    opacity: .5;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+#createaccount2
+{
+    z-index: 1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: white;
+    opacity: 1;
+    height: 375px;
+    width: 350px;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+}
+#finishaccount
+{
+    font-family: Montserrat;
+}
+#skip
+{
+    font-family: Montserrat;
+    color: dodgerblue;
+    margin: 20px;
+    font-size: 15px;
+}
+#createback
+{
+    margin-top: -35px;
+    margin-bottom: 5px;
+    height: 10px;
+    color: red;
+    font-family: Montserrat;
+    font-size: 13px;
+}

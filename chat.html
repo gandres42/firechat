@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" id="chatdoc">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+
+<body>
+<div id="topnav">
+    <a id="chat" class="nav">Chat</a>
+    <a id="settings" class="nav" onclick="hide()">Settings</a>
+    <a id="logout" class="nav" onclick="logout()">Log Out</a>
+</div>
+<div id="chatbottom">
+    <p id="chatbox" contenteditable="false"></p>
+    <br id="space">
+    <div id="inout">
+        <input id="input" placeholder="enter message here">
+        <button id="submit" onclick="addchat(document.getElementById('input').value)">Submit</button>
+    </div>
+</div>
+<div id="stage2">
+</div>
+<div id="createaccount2">
+    <p id="finishaccount">Please finish creating your account</p>
+    <br>
+    <p id="createback"></p>
+    <input class="stage2" id="fname" placeholder="first name">
+    <input class="stage2" id="lname" placeholder="last name">
+    <input class="stage2" id="uname" placeholder="chat username">
+    <button id="emailverify" onclick="emailverify()">Send Confirmation Email</button>
+    <button onclick="addInfo(document.getElementById('fname').value, document.getElementById('lname').value, document.getElementById('uname').value)">Update Account Info</button>
+    <br>
+    <ref onclick="logout()" id="skip">logout</ref>
+</div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#config-web-app -->
+<script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBwUcvUD5z8X4MGn-Uc3i0RKhI2BIHVPa4",
+        authDomain: "dbtest-54a41.firebaseapp.com",
+        databaseURL: "https://dbtest-54a41.firebaseio.com",
+        projectId: "dbtest-54a41",
+        storageBucket: "dbtest-54a41.appspot.com",
+        messagingSenderId: "579580245148",
+        appId: "1:579580245148:web:32c36232cb43a603"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+</script>
+</body>
+</html>
+<link rel="stylesheet" href="home.css">
+<script src="index.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>

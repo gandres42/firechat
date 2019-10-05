@@ -1,0 +1,170 @@
+input
+{
+    background: #e9e9e9;
+    border-radius: 2px;
+    padding: 10px;
+    width: 250px;
+    border: 2px solid #e9e9e9;
+    -webkit-transition-duration: 0.2s;
+    font-family: montserrat;
+    margin: 5px;
+}
+button
+{
+    margin: 5px;
+    background: dodgerblue;
+    border-radius: 2px;
+    padding: 10px;
+    width: 275px;
+    -webkit-transition-duration: 0.2s;
+    border: 2px solid dodgerblue;
+    font-family: montserrat;
+    color: white;
+    align-content: center;
+    vertical-align: middle;
+}
+button:hover
+{
+    -webkit-transition-duration: 0.2s;
+    background: white;
+    color: black;
+}
+input:focus
+{
+    border-radius: 2px;
+    padding: 10px;
+    width: 250px;
+    border: 2px solid dodgerblue;
+    -webkit-transition-duration: 0.2s;
+}
+#login
+{
+    left: 50%;
+    background-color: white;
+    width: 340px;
+    height: 435px;
+    border-radius: 4px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+#signin
+{
+    left: 50%;
+    background-color: white;
+    width: 340px;
+    height: 300px;
+    border-radius: 4px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+#document {
+    background-image: url(background.jpg);
+    background-repeat: no-repeat;
+    -webkit-background-size: auto;
+    background-size: auto;
+}
+#topspace
+{
+    height: 20px;
+}
+#icon
+{
+    height: 100px;
+    width: 100px;
+    padding: 0px;
+}
+#title
+{
+    font-family: Montserrat;
+    margin: 0px;
+}
+#iconpadding
+{
+    padding: 00px;
+}
+#signup
+{
+    font-family: Montserrat;
+    font-size: smaller;
+}
+a
+{
+    color: dodgerblue;
+}
+#signout
+{
+    left: 100%;
+}
+#googlebutton
+{
+    background: white;
+    background-image: url("glogo.png");
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position-y: 50%;
+    background-position-x: 5px;
+    color: black;
+    height: 40px;
+}
+#googlebutton:hover
+{
+    background: lightgray;
+    background-image: url("glogo.png");
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position-y: 50%;
+    background-position-x: 5px;
+}
+#feedback
+{
+    font-family: Montserrat;
+    font-size: 15px;
+    padding: 0px;
+}
+#passreturn
+{
+    padding-top: 0px;
+    margin-top: -15px;
+    margin-bottom: -15px;
+    font-family: Montserrat;
+    font-size: 12px;
+    color: RED;
+    width: 340px;
+    align-content: center;
+}
+#topspace
+{
+    margin: 0px;
+    padding: 0px;
+    background: black;
+}
+#createback
+{
+    margin-top: -35px;
+    margin-bottom: 5px;
+    height: 10px;
+    color: red;
+    font-family: Montserrat;
+    font-size: 13px;
+}
+#createtitle
+{
+    margin: 30px;
+    font-family: Montserrat;
+}
+.container
+{
+    position: relative;
+}
+#createfeedback
+{
+    font-family: Montserrat;
+    font-size: 15px;
+    padding: 0px;
+}

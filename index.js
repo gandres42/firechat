@@ -201,7 +201,7 @@ database().ref('chat').on('value', function(snapshot) {
     console.log(chat);
     document.getElementById('chatbox').innerHTML = '';
     chat.forEach(function(i){
-       document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + JSON.stringify(i).replace(/{/g, "").replace(/}/g, "").replace(/"/g, "").replace(/:/, ": ") + "<br>";
+       document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + "<b>" + (sanitizeString(JSON.stringify(i)).replace(/{/g, "").replace(/}/g, "").replace(/"/g, "").replace(/:/, ": ") + "<br>").replace(": ", "</b>: ");
     });
 });
 
@@ -220,3 +220,9 @@ function handleEnter(e){
         addchat(document.getElementById('input').value);
     }
 }
+
+function sanitizeString(str) {
+    var temp = document.createElement('div');
+    temp.textContent = str;
+    return temp.innerHTML;
+};

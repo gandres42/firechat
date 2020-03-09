@@ -8,12 +8,24 @@
 
 <body onkeypress="handleEnter(event)">
 <div id="topnav">
-    <a id="chat" class="nav">Chat</a>
-    <a id="settings" class="nav" onclick="hide()">Settings</a>
+    <a id="chat" class="nav" onclick="chat()">Chat</a>
+    <a id="settings" class="nav" onclick="settings()">Settings</a>
     <a id="logout" class="nav" onclick="logout()">Log Out</a>
 </div>
 <div id="chatbottom">
-    <p id="chatbox" contenteditable="false"></p>
+    <p id="chatbox" class="middlesection" contenteditable="false"></p>
+    <div id="settingsbox" class="middlesection" style="display:none;">
+        <p>First Name</p>
+        <input id="fnameset">
+        <p>Last Name</p>
+        <input id="lnameset">
+        <p>Username</p>
+        <input id="unameset">
+        <br>
+        <button onclick="updateSettings()">Update Settings</button>
+        <br>
+        <button onclick="deleteAccount()">Delete Account</button>
+    </div>
     <br id="space">
     <div id="inout">
         <input id="input" placeholder="enter message here">

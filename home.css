@@ -81,7 +81,7 @@ input:focus
     display: inline-block;
     text-align: start;
 }
-#chatbox
+.middlesection
 {
     margin: 0px;
     width: calc(100% - 20px);

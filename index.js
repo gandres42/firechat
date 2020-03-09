@@ -91,7 +91,6 @@ function addInfo(fname, lname, username)
         }
         else
         {
-            console.log("heck yeah");
             database().ref('users/' + currentuser.uid).update(
                 {
                     fname: fname,
@@ -176,14 +175,11 @@ function checkVerified()
 {
         database().ref('users/' + currentuser.uid + '/verified').once('value').then(function (snapshot) {
         checkVerified2(snapshot.val());
-        console.log(snapshot.val());
     });
 }
 
 function checkVerified2(verified)
 {
-    console.log('test');
-    console.log(verified)
     if (!verified)
     {
         document.getElementById('stage2').style.display = 'inline';
@@ -198,7 +194,6 @@ document.onload
 }
 database().ref('chat').on('value', function(snapshot) {
     var chat = Object.values(snapshot.val());
-    console.log(chat);
     document.getElementById('chatbox').innerHTML = '';
     chat.forEach(function(i){
        document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + "<b>" + (sanitizeString(JSON.stringify(i)).replace(/{/g, "").replace(/}/g, "").replace(/"/g, "").replace(/:/, ": ") + "<br>").replace(": ", "</b>: ");
@@ -226,3 +221,40 @@ function sanitizeString(str) {
     temp.textContent = str;
     return temp.innerHTML;
 };
+
+function settings() {
+    document.getElementById("chatbox").style.display = 'none';
+    document.getElementById("settingsbox").style.display = 'block';
+
+    var initSettingsData = database().ref('/users/' + currentuser.uid).once('value').then(function (snapshot) {
+        document.getElementById("fnameset").value = snapshot.val().fname;
+        document.getElementById("lnameset").value = snapshot.val().lname;
+        document.getElementById("unameset").value = snapshot.val().uname;
+    });
+}
+
+function updateSettings()
+{
+    database().ref("users/" + currentuser.uid).update({
+       fname: document.getElementById("fnameset").value,
+       lname: document.getElementById("lnameset").value,
+       uname: document.getElementById("unameset").value
+    });
+}
+
+function chat()
+{
+    document.getElementById("chatbox").style.display = 'block';
+    document.getElementById("settingsbox").style.display = 'none';
+}
+
+function deleteAccount()
+{
+    database().ref("users/" + currentuser.uid).remove();
+
+    auth.currentUser.delete().then(function() {
+        console.log("user deleted");
+    }).catch(function(error) {
+        console.log(error);
+    });
+}

@@ -26,6 +26,8 @@ function redirect()
 
 auth.onAuthStateChanged(function(user)
 {
+    //console.log(user.providerId)
+
     if(user) {
         const filename = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
         if (filename == "signup.html" || (filename != 'chat.html' && filename != 'signup.html')) {
@@ -124,11 +126,13 @@ function checkverification()
 
 function emailverify()
 {
+    console.log(currentuser.providerData)
+    console.log();
     var button = document.getElementById("emailverify")
     button.disabled = true;
     if(!currentuser.emailVerified)
     {
-        currentuser.sendEmailVerification();
+        auth.currentUser.sendEmailVerification();
     }
     button.innerHTML = "Waiting for verification..."
     button.disabled = true;

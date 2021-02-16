@@ -41,21 +41,21 @@ input:focus
 {
     left: 50%;
     background-color: white;
-    width: 340px;
-    height: 435px;
+    width: 320px;
+    height: auto;
     border-radius: 4px;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
 }
-#signin
+#signup
 {
     left: 50%;
     background-color: white;
-    width: 340px;
-    height: 300px;
+    width: 320px;
+    height: auto;
     border-radius: 4px;
     position: fixed;
     top: 50%;
@@ -82,14 +82,16 @@ input:focus
 #title
 {
     font-family: Montserrat;
-    margin: 0px;
+    margin-bottom: 20px;
+    margin-top: 0;
 }
 #iconpadding
 {
     padding: 00px;
 }
-#signup
+#create
 {
+    margin-top: 5px;
     font-family: Montserrat;
     font-size: smaller;
 }
@@ -100,26 +102,6 @@ a
 #signout
 {
     left: 100%;
-}
-#googlebutton
-{
-    background: white;
-    background-image: url("glogo.png");
-    background-size: 30px;
-    background-repeat: no-repeat;
-    background-position-y: 50%;
-    background-position-x: 5px;
-    color: black;
-    height: 40px;
-}
-#googlebutton:hover
-{
-    background: lightgray;
-    background-image: url("glogo.png");
-    background-size: 30px;
-    background-repeat: no-repeat;
-    background-position-y: 50%;
-    background-position-x: 5px;
 }
 #feedback
 {
@@ -155,7 +137,8 @@ a
 }
 #createtitle
 {
-    margin: 30px;
+    margin-top: 20px;
+    margin-bottom: 30px;
     font-family: Montserrat;
 }
 .container

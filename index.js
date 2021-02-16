@@ -26,8 +26,6 @@ function redirect()
 
 auth.onAuthStateChanged(function(user)
 {
-    //console.log(user.providerId)
-
     if(user) {
         const filename = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
         if (filename == "signup.html" || (filename != 'chat.html' && filename != 'signup.html')) {
@@ -45,11 +43,6 @@ auth.onAuthStateChanged(function(user)
         }
     }
 });
-
-function googledirect()
-{
-    auth.signInWithRedirect(provider);
-}
 
 function passmatch()
 {
@@ -83,11 +76,11 @@ function nextLogin(email, pass, passmatch)
 }
 
 
-function addInfo(fname, lname, username)
+function addInfo(username)
 {
-    if (fname != "" & lname != "" & username != "" & currentuser.emailVerified == true)
+    if (username != "" && currentuser.emailVerified == true)
     {
-        if (username.search('.') === -1 & username.search('\\#') === -1 & username.search('\\$') === -1 & username.search('\\[') === -1 & username.search('\\]') === -1)
+        if (username.search('\\.') !== -1 || username.search('\\#') !== -1 || username.search('\\$') !== -1 || username.search('\\[') !== -1 || username.search('\\]') !== -1)
         {
             document.getElementById('createback').innerHTML = "username cannot contain . , # , $ , [ , or ]";
         }
@@ -95,12 +88,10 @@ function addInfo(fname, lname, username)
         {
             database().ref('users/' + currentuser.uid).update(
                 {
-                    fname: fname,
-                    lname: lname,
                     uname: username,
                     verified: true,
                 });
-            document.getElementById('createaccount2').style.display = 'none';
+            document.getElementById('accountdetails').style.display = 'none';
             document.getElementById('stage2').style.display = 'none';
         }
     }
@@ -187,14 +178,14 @@ function checkVerified2(verified)
     if (!verified)
     {
         document.getElementById('stage2').style.display = 'inline';
-        document.getElementById('createaccount2').style.display = 'inline';
+        document.getElementById('accountdetails').style.display = 'inline';
     }
 }
 
 document.onload
 {
     document.getElementById('stage2').style.display = 'none';
-    document.getElementById('createaccount2').style.display = 'none';
+    document.getElementById('accountdetails').style.display = 'none';
 }
 database().ref('chat').on('value', function(snapshot) {
     var chat = Object.values(snapshot.val());
@@ -227,29 +218,26 @@ function sanitizeString(str) {
 };
 
 function settings() {
-    document.getElementById("chatbox").style.display = 'none';
-    document.getElementById("settingsbox").style.display = 'block';
+    document.getElementById("stage2").style.display = 'inline';
+    document.getElementById("settingdetails").style.visibility = 'visible';
 
     var initSettingsData = database().ref('/users/' + currentuser.uid).once('value').then(function (snapshot) {
-        document.getElementById("fnameset").value = snapshot.val().fname;
-        document.getElementById("lnameset").value = snapshot.val().lname;
-        document.getElementById("unameset").value = snapshot.val().uname;
+        document.getElementById("settingsuname").value = snapshot.val().uname;
     });
 }
 
 function updateSettings()
 {
     database().ref("users/" + currentuser.uid).update({
-       fname: document.getElementById("fnameset").value,
-       lname: document.getElementById("lnameset").value,
-       uname: document.getElementById("unameset").value
+       uname: document.getElementById("settingsuname").value
     });
+    cancelSettings();
 }
 
-function chat()
+function cancelSettings()
 {
-    document.getElementById("chatbox").style.display = 'block';
-    document.getElementById("settingsbox").style.display = 'none';
+    document.getElementById("stage2").style.display = 'none';
+    document.getElementById("settingdetails").style.visibility = 'hidden';
 }
 
 function deleteAccount()

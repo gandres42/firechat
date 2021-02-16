@@ -67,10 +67,7 @@ input:focus
     color: dodgerblue;
     -webkit-transition-duration: 0.2s;
 }
-#logout
-{
-    float: right;
-}
+
 #chatbottom
 {
     margin-top: 10px;
@@ -128,7 +125,7 @@ input:focus
     top: 0;
     z-index: 0;
 }
-#createaccount2
+#accountdetails
 {
     z-index: 1;
     position: absolute;
@@ -136,8 +133,8 @@ input:focus
     top: 50%;
     background: white;
     opacity: 1;
-    height: 375px;
-    width: 350px;
+    height: auto;
+    width: 325px;
     transform: translate(-50%, -50%);
     border-radius: 4px;
     display: inline-block;
@@ -146,13 +143,14 @@ input:focus
 #finishaccount
 {
     font-family: Montserrat;
+    margin-bottom: 30px;
 }
 #skip
 {
     font-family: Montserrat;
     color: dodgerblue;
-    margin: 20px;
     font-size: 15px;
+    padding: 10px;
 }
 #createback
 {
@@ -162,4 +160,38 @@ input:focus
     color: red;
     font-family: Montserrat;
     font-size: 13px;
+}
+#emailverify
+{
+    color: black;
+    background-color: white;
+    margin-bottom: 5px;
+}
+#emailverify:hover
+{
+    color: white;
+    background-color: dodgerblue;
+}
+#cancel
+{
+    color: white;
+    background-color: red;
+    border-color: red;
+    margin: 10px;
+    margin-top: 5px;
+}
+#cancel:hover
+{
+    color: black;
+    background-color: white;
+}
+#settingdetails
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    height: auto;
+    border-radius: 7px;
 }

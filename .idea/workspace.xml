@@ -22,7 +22,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../covid-dash" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -42,6 +42,8 @@
       <workItem from="1586387618220" duration="2285000" />
       <workItem from="1586541073610" duration="24000" />
       <workItem from="1613356993525" duration="11839000" />
+      <workItem from="1613508898448" duration="823000" />
+      <workItem from="1614555548583" duration="8000" />
     </task>
     <servers />
   </component>

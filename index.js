@@ -1,252 +1,148 @@
 const auth = firebase.auth();
-var database = firebase.database;
+var database = firebase.database();
 var currentuser;
-var ver;
 
+auth.onAuthStateChanged((user) => {
+    document.getElementById('passreturn').style.visibility = 'hidden';
+    if (user) {
+        document.getElementById("login").style.visibility = 'hidden';
+        document.getElementById("signup").style.visibility = 'hidden';
+        document.getElementById("chat").style.visibility = 'visible';
+        currentuser = user.uid;
+        database.ref('users/' + currentuser).once('value').then(function (snapshot) {
+            if (snapshot.val() == null)
+            {
+                database.ref('users').set({
+                    [currentuser]: 'Anonymous'
+                });
+            }
+        });
+    }
+    else
+    {
+        document.getElementById("login").style.visibility = 'visible';
+        document.getElementById("chat").style.visibility = 'hidden';
+        document.getElementById("signup").style.visibility = 'hidden';
+        currentuser = "";
+    }
+});
 
-function check()
+database.ref('chat').on('value', function(snapshot) {
+    if (snapshot.val() != null)
+    {
+        var chat = Object.values(snapshot.val());
+        document.getElementById('chatbox').innerHTML = '';
+        chat.forEach(function(i){
+            document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + "<b>" + (sanitize_string(JSON.stringify(i)).replace(/{/g, "").replace(/}/g, "").replace(/"/g, "").replace(/:/, ": ") + "<br>").replace(": ", "</b>: ");
+        });
+    }
+});
+
+function login()
 {
     const email = document.getElementById("username").value
     const pass = document.getElementById("password").value
     auth.signInWithEmailAndPassword(email, pass).catch(function(error) {
+        document.getElementById('passreturn').style.visibility = 'visible';
         document.getElementById("passreturn").innerHTML = error.message;
     });
 }
-
 
 function logout()
 {
     auth.signOut();
 }
 
-function redirect()
-{
-    window.location = "index.html";
-}
 
-auth.onAuthStateChanged(function(user)
+function signup(email, pass, passmatch)
 {
-    if(user) {
-        const filename = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-        if (filename == "signup.html" || (filename != 'chat.html' && filename != 'signup.html')) {
-            window.location = "chat.html";
-        }
-        currentuser = user
-        checkVerified();
+    if (pass === passmatch)
+    {
+        auth.createUserWithEmailAndPassword(email, pass)
+        .then((userCredential) => {
+            document.getElementById('username_select_background').style.visibility = 'visible';
+            document.getElementById('username_select').style.visibility = 'visible';
+        })
+        .catch((error) => {
+            document.getElementById("createback").innerHTML = error.message;
+        });
     }
     else
     {
-        const filename = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-        if(filename != 'index.html' && filename != 'signup.html')
-        {
-            window.location = "index.html";
-        }
-    }
-});
-
-function passmatch()
-{
-    if (document.getElementById("newpass").value != document.getElementById("confirmnewpass").value)
-    {
-        document.getElementById("newpass").style.border= '2px solid red';
-        document.getElementById("confirmnewpass").style.border= '2px solid red';
-        document.getElementById("feedback").style.color= "red";
-        //document.getElementById("feedback").innerHTML= "the passwords do not match";
-    }
-    else
-    {
-        document.getElementById("newpass").style.border= '2px solid #e9e9e9';
-        document.getElementById("confirmnewpass").style.border= '2px solid #e9e9e9';
-        document.getElementById("feedback").style.color= "black";
-        //document.getElementById("feedback").innerHTML= "";
-    }
-}
-function nextLogin(email, pass, passmatch)
-{
-    if (pass == passmatch && pass != "")
-    {
-        const promise = auth.createUserWithEmailAndPassword(email, pass);
-        promise
-            .catch(e => document.getElementById("createback").innerHTML = e.message);
-    }
-    else
-    {
-        document.getElementById("createback").innerHTML = "passwords do not match or are invalid";
+        document.getElementById("createback").innerHTML = "Passwords do not match";
     }
 }
 
-
-function addInfo(username)
-{
-    if (username != "" && currentuser.emailVerified == true)
-    {
-        if (username.search('\\.') !== -1 || username.search('\\#') !== -1 || username.search('\\$') !== -1 || username.search('\\[') !== -1 || username.search('\\]') !== -1)
-        {
-            document.getElementById('createback').innerHTML = "username cannot contain . , # , $ , [ , or ]";
-        }
-        else
-        {
-            database().ref('users/' + currentuser.uid).update(
-                {
-                    uname: username,
-                    verified: true,
-                });
-            document.getElementById('accountdetails').style.display = 'none';
-            document.getElementById('stage2').style.display = 'none';
-        }
-    }
-    else
-    {
-        document.getElementById('createback').innerHTML = "all fields must be filled";
-    }
-
-}
-
-function checkverification()
-{
-    var button = document.getElementById("emailverify");
-    currentuser.reload();
-    if (currentuser.emailVerified == true)
-    {
-        clearInterval(ver);
-        button.innerHTML = "Email Verified!";
-        button.style.background = "#00E676";
-        button.style.borderColor = "#00E676";
-    }
-}
-
-function emailverify()
-{
-    console.log(currentuser.providerData)
-    console.log();
-    var button = document.getElementById("emailverify")
-    button.disabled = true;
-    if(!currentuser.emailVerified)
-    {
-        auth.currentUser.sendEmailVerification();
-    }
-    button.innerHTML = "Waiting for verification..."
-    button.disabled = true;
-    ver = setInterval(checkverification, 10);
-}
-
-function addchat(message)
+function send_message(message)
 {
     if (message != '')
     {
         document.getElementById('input').value = '';
         var username;
-        var messageId;
-        database().ref('users/' + currentuser.uid + '/uname').once('value').then(function (snapshot) {
+        var msg_id;
+        database.ref('users/' + currentuser + '/uname').once('value').then(function (snapshot) {
             username = snapshot.val();
+            database.ref('msg_id').once('value').then(function (snapshot) {
+                msg_id = snapshot.val();
+                database.ref('users/' + currentuser).once('value').then(function (snapshot) {
+                    database.ref('chat').update({
+                        [msg_id]: snapshot.val() + ": " + message
+                    });
+                    msg_id+=1;
+                    database.ref().update({
+                        msg_id: msg_id
+                    });
+                });
+            });
         });
-        database().ref('messageId').once('value').then(function (snapshot) {
-            messageId = snapshot.val();
-            addchat2(username, messageId, message);
-        });
+
     }
 }
 
-function addchat2(uname, messageId, chat)
-{
-    if (messageId != NaN)
-    {
-        var message = messageId + uname
-        database().ref('chat/' + message).update({
-            [uname]: chat
-        });
-        if (messageId == 1100)
-        {
-            clearchat();
-        }
-        messageId+=1;
-        database().ref().update({
-            messageId: messageId
-        });
-    }
-}
-
-function checkVerified()
-{
-        database().ref('users/' + currentuser.uid + '/verified').once('value').then(function (snapshot) {
-        checkVerified2(snapshot.val());
-    });
-}
-
-function checkVerified2(verified)
-{
-    if (!verified)
-    {
-        document.getElementById('stage2').style.display = 'inline';
-        document.getElementById('accountdetails').style.display = 'inline';
-    }
-}
-
-document.onload
-{
-    document.getElementById('stage2').style.display = 'none';
-    document.getElementById('accountdetails').style.display = 'none';
-}
-database().ref('chat').on('value', function(snapshot) {
-    var chat = Object.values(snapshot.val());
-    document.getElementById('chatbox').innerHTML = '';
-    chat.forEach(function(i){
-       document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + "<b>" + (sanitizeString(JSON.stringify(i)).replace(/{/g, "").replace(/}/g, "").replace(/"/g, "").replace(/:/, ": ") + "<br>").replace(": ", "</b>: ");
-    });
-});
-
-function clearchat()
-{
-    database().ref('chat').remove();
-    database().update({
-        messageId: 10
-    });
-    addchat2('system', 10, 'message capacity reached, chat reset');
-}
-
-function handleEnter(e){
+function handle_enter(e){
     var keycode = (e.keyCode ? e.keyCode : e.which);
     if (keycode == '13') {
-        addchat(document.getElementById('input').value);
+        send_message(document.getElementById('input').value);
     }
 }
 
-function sanitizeString(str) {
+function sanitize_string(str) {
     var temp = document.createElement('div');
     temp.textContent = str;
     return temp.innerHTML;
 };
 
-function settings() {
-    document.getElementById("stage2").style.display = 'inline';
-    document.getElementById("settingdetails").style.visibility = 'visible';
+function delete_account(confirm)
+{
+    database.ref('users/' + currentuser).once('value').then(function (snapshot) {
+        if (snapshot.val() == confirm)
+        {
+            database.ref("users/" + currentuser).remove();
 
-    var initSettingsData = database().ref('/users/' + currentuser.uid).once('value').then(function (snapshot) {
-        document.getElementById("settingsuname").value = snapshot.val().uname;
+            auth.currentUser.delete().then(function() {
+                console.log("user deleted");
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
+    });
+    document.getElementById('settingsmenu').style.visibility = 'hidden';
+    document.getElementById('settingsmenu_background').style.visibility = 'hidden';
+}
+
+function update_username(uname)
+{
+    database.ref('users').update({
+        [currentuser]: uname
     });
 }
 
-function updateSettings()
+function open_settings()
 {
-    database().ref("users/" + currentuser.uid).update({
-       uname: document.getElementById("settingsuname").value
-    });
-    cancelSettings();
-}
-
-function cancelSettings()
-{
-    document.getElementById("stage2").style.display = 'none';
-    document.getElementById("settingdetails").style.visibility = 'hidden';
-}
-
-function deleteAccount()
-{
-    database().ref("users/" + currentuser.uid).remove();
-
-    auth.currentUser.delete().then(function() {
-        console.log("user deleted");
-    }).catch(function(error) {
-        console.log(error);
+    document.getElementById('delete_account').value = "";
+    document.getElementById('settingsmenu').style.visibility = 'visible';
+    document.getElementById('settingsmenu_background').style.visibility = 'visible';
+    database.ref('users/' + currentuser).once('value').then(function (snapshot) {
+        document.getElementById('username_change').value = snapshot.val();
     });
 }

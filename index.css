@@ -9,6 +9,14 @@ input
     font-family: montserrat;
     margin: 5px;
 }
+input:focus
+{
+    border-radius: 2px;
+    padding: 10px;
+    width: 250px;
+    border: 2px solid dodgerblue;
+    -webkit-transition-duration: 0.2s;
+}
 button
 {
     margin: 5px;
@@ -29,125 +37,21 @@ button:hover
     background: white;
     color: black;
 }
-input:focus
-{
-    border-radius: 2px;
-    padding: 10px;
-    width: 250px;
-    border: 2px solid dodgerblue;
-    -webkit-transition-duration: 0.2s;
-}
-#login
-{
-    left: 50%;
-    background-color: white;
-    width: 320px;
-    height: auto;
-    border-radius: 4px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-#signup
-{
-    left: 50%;
-    background-color: white;
-    width: 320px;
-    height: auto;
-    border-radius: 4px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
 document {
-    background-image: url(background.jpg);
     background-repeat: no-repeat;
     -webkit-background-size: auto;
     background-size: auto;
 }
-#topspace
-{
-    height: 20px;
-}
-#icon
-{
-    height: 100px;
-    width: 100px;
-    padding: 0px;
-}
-#title
+h1
 {
     font-family: Montserrat;
-    margin-bottom: 20px;
-    margin-top: 0;
-}
-#iconpadding
-{
-    padding: 00px;
-}
-#create
-{
-    margin-top: 5px;
-    font-family: Montserrat;
-    font-size: smaller;
 }
 a
 {
     color: dodgerblue;
-}
-#signout
-{
-    left: 100%;
-}
-#feedback
-{
-    font-family: Montserrat;
-    font-size: 15px;
-    padding: 0px;
-}
-#passreturn
-{
-    padding-top: 0px;
-    margin-top: -15px;
-    margin-bottom: -15px;
-    font-family: Montserrat;
-    font-size: 12px;
-    color: RED;
-    width: 340px;
-    align-content: center;
-}
-#topspace
-{
-    margin: 0px;
-    padding: 0px;
-    background: black;
-}
-#createback
-{
-    margin-top: -35px;
-    margin-bottom: 5px;
-    height: 10px;
-    color: red;
-    font-family: Montserrat;
-    font-size: 13px;
-}
-#createtitle
-{
-    margin-top: 20px;
-    margin-bottom: 30px;
     font-family: Montserrat;
 }
-.container
-{
-    position: relative;
-}
-#createfeedback
+p
 {
     font-family: Montserrat;
-    font-size: 15px;
-    padding: 0px;
 }
